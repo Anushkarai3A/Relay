@@ -1,0 +1,17 @@
+
+question_id,setting,expected_evidence_present,evidence_page,review_notes
+ATT-01,B,yes,4,"Scaled dot-product attention formula and explanation are present."
+ATT-02,B,yes,4-5,"Learned projections, parallel heads, concatenation and output projection are present."
+ATT-03,B,no,2;6;10,"Retrieved passages do not contain the complete explanation and sinusoidal equations."
+ATT-04,B,yes,3;5,"Encoder and decoder sublayers, masking, residual connections and layer normalization are present."
+ATT-05,B,uncertain,8,"No GPT-4 inference memory figure in retrieved passages; absence from the entire collection has not been established."
+MOS-01,B,yes,1;7,"Abstract explains latency, lost non-linguistic information and overlapping speech limitations."
+MOS-02,B,yes,6;17,"Separate user and assistant streams and full-duplex operation are explained."
+MOS-03,B,yes,3;41,"Time-aligned text prefixes, linguistic quality improvements and streaming ASR/TTS are described."
+MOS-04,B,no,34;52,"Retrieved passages do not contain the 160 ms theoretical and 200 ms practical latency figures."
+MOS-05,B,yes,27,"Table 7 reports MMLU scores of 49.8, 49.7 and 48.7 for different Moshi configurations."
+DCH-01,B,yes,2;3;33,"Content- and context-aware dynamic segmentation learned through gradient-based optimization is explained."
+DCH-02,B,yes,4;23,"Hierarchical encoder, main network and decoder replace handcrafted tokenization with end-to-end learned processing."
+DCH-03,B,yes,12;13,"Compute- and data-matched comparisons show H-Net variants outperforming BPE Transformer baselines after crossover points."
+DCH-04,B,yes,4;22,"Recursive hierarchy improves performance and scaling with data; deeper stages consistently improve results."
+DCH-05,B,uncertain,17;39,"Retrieved passages discuss DNA and language modelling, but do not establish absence of medical tumor-classification results throughout the paper."

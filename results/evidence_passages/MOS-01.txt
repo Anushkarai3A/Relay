@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: MOS-01
+===========================================================================
+
+Question: What problems with conventional spoken-dialogue pipelines does Moshi aim to address?
+Expected paper: 2410.00037v1
+Answerable: True
+
+Expected evidence:
+High interaction latency; loss of non-linguistic information through text intermediates; inability to handle overlapping speech and interruptions.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2410.00037v1
+PAGE: 1
+SIMILARITY SCORE: 0.8041
+
+PASSAGE TEXT:
+
+moshi : a speech - text foundation model for real - time dialogue moshi : a speech - text foundation model for real - time dialogue alexandre d´efossez∗ alex @ kyutai. org laurent mazar´e∗ manu orsini am´elie royer patrick p´erez herv´e j´egou edouard grave∗ neil zeghidour∗ neil @ kyutai. org kyutai ∗equal contribution abstract we introduce moshi, a speech - text foundation model and full - duplex spoken dialogue frame - work. current systems for spoken dialogue rely on pipelines of independent components, namely voice activity detection, speech recognition, textual dialogue and text - to - speech. such frameworks cannot emulate the experience of real conversations. first, their complex - ity induces a latency of several seconds between interactions. second, text being the inter - mediate modality for dialogue, non - linguistic information that modifies meaning — such as emotion or non - speech sounds — is lost in the interaction. finally, they rely on a segmenta - tion into speaker turns, which does not take into account overlapping speech, interruptions and interjections. moshi solves these independent issues altogether by casting spoken dia - logue as speech - to - speech generation. starting from a text language model backbone, moshi generates speech as tokens from the residual quantizer of a neural audio codec, while model - ing separately its own speech and that of the user into parallel streams. this allows for the removal of explicit speaker turns, and the modeling of arbitrary conversational dynamics. we moreover extend the hierarchical semantic - to - acoustic token generation of previous work to first predict time - aligned text tokens as a prefix to audio tokens. not only this “ inner monologue ” method significantly improves the linguistic quality of generated speech, but we also illustrate how it can provide streaming speech recognition and text - to - speech. our re - sulting model is the first real - time full - duplex spoken large language model, with a theoret - ical latency of 160ms, 200ms in practice, and is available at github. com
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2410.00037v1
+PAGE: 7
+SIMILARITY SCORE: 0.7956
+
+PASSAGE TEXT:
+
+moshi : a speech - text foundation model for real - time dialogue moshi is built on top of helium, a text llm which we build from scratch ( section 3. 2 ), relying on high - quality text data to provide strong reasoning abilities to the model. we also propose inner monologue ( section 3. 4. 4 ), a training and inference procedure in which we jointly model text and audio tokens. this allows the model to fully exploit the knowledge imparted from the text modality, while remaining a speech - to - speech system. to enable real - time dialogue, we also design moshi as a multi - stream architecture from the get - go ( section 3. 4. 3 ) : the model is able to both speak and listen to the user at the same time, and does not need to explicitly model speaker turns. in addition, to capture the input user audio and output moshi ’ s voice with high quality and in an efficient manner, we propose mimi ( section 3. 3 ), a neural audio codec combining semantic and acoustic information into a single tokenizer by using residual vector quantization and knowledge distillation. to jointly model the audio streams from moshi and the user, as well as moshi ’ s text tokens, we rely on a depth transformer compatible with streaming inference ( sections 3. 4. 1, 3. 4. 2 ). in this section, we further detail each of these components. we then describe the training datasets and the different training phases we used to train moshi in section 4. finally, in section 5, we report thorough evaluation results on moshi ’ s abilities, both linguistic and acoustic, as well as ablation experiments on its main components, while section 6 provides analyses on the safety of our system. 3. 2 the helium text language model 3. 2. 1 architecture helium is an autoregressive language model, based on the transformer architecture ( vaswani et al., 2017 ). following previous work in this area, we make the following changes to the original architecture : first, we use rms normalization ( zhang and sennrich, 2019 ) at the input of the attention blocks,
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2410.00037v1
+PAGE: 3
+SIMILARITY SCORE: 0.7938
+
+PASSAGE TEXT:
+
+several audio streams in parallel, allowing for a conceptually and practically simple handling of full - duplex dialogues with arbitrary dynamics. section 3. 4 describes this architecture. • in section 3. 4. 4, we introduce inner monologue, a new training and inference setup for audio language models that significantly improves the factuality and linguistic quality of generated speech by predicting time - aligned text tokens before audio to - kens. moshi is a speech - to - speech model as it allows reasoning about non - linguistic information, both from the user audio and from moshi ’ s audio. yet, this is not in - compatible with moshi producing text along its speech output. based on the past observation ( borsos et al., 2022 ; zhang et al., 2024b ) that coarse - to - fine generation ( from semantic to acoustic tokens ) is critical to generating consistent speech, we ex - tend this hierarchy to using text tokens as a per - timestep prefix to the semantic token. our experiments show that not only this drastically improves the length and quality of generated speech, but we also show how forcing a delay between text and audio tokens allows deriving streaming asr and streaming tts from a moshi model. • we evaluate all components of moshi along several axes, including text understanding, speech intelligibility and consistency, audio quality and spoken question answering. our experiments, reported in section 5, show that our model is state of the art among existing speech - text models for speech modeling and spoken question answering while being streaming compatible and able to model several minutes of context ( 5 min in our experiments ). we encourage the reader to talk to moshi using our web demo. 5 5. https : / / moshi. chat / 3
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2410.00037v1
+PAGE: 6
+SIMILARITY SCORE: 0.7931
+
+PASSAGE TEXT:
+
+moshi : a speech - text foundation model for real - time dialogue figure 1 : overview of moshi. moshi is a speech - text foundation model which enables real - time spoken dialogue. the main components of moshi ’ s architecture are : a bespoke text language model backbone ( helium, see section 3. 2 ) ; a neural audio codec with residual vector quantization and with semantic knowledge distilled from a self - supervised speech model ( mimi, section 3. 3 ) ; the streaming, hierarchical generation of semantic and acoustic tokens for both the user and moshi, along with time - aligned text tokens for moshi when using inner monologue ( section 3. 4 ). been proposed by wang et al. ( 2024 ), with an asr system running in parallel to a text generator that feeds into a streaming tts. while this allows modeling more complex sce - narios than previous approaches, it still relies on a cascaded pipeline and models both the user ’ s and the system ’ s speech into a single token stream, which is challenging in presence of significant overlap. the only previous full - duplex dialogue system is dgslm ( nguyen et al., 2023 ), which models user and system speech as separate audio token streams and pro - poses a siamese architecture to process both streams jointly. while dgslm is full - duplex, it remains a proof - of - concept : it does not run in an online fashion, it does not benefit from the knowledge of a text language model, and it does not model acoustic information as it only models semantic tokens. moshi addresses these limitations altogether : by modeling two streams of semantic and acoustic tokens hierarchically, moshi is full duplex and can exploit all the information from the user ( linguistic and non - linguistic ) while producing speech in real time. thanks to text pretraining and inner monologue, moshi benefits from the knowledge of its helium backbone. finally, as the model produces acoustic tokens along with text and semantic tokens, it can generate an arbitrary range of emotions, voices and acoustic conditions. to the best of our knowledge, moshi is the first audio language model that
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2410.00037v1
+PAGE: 18
+SIMILARITY SCORE: 0.7878
+
+PASSAGE TEXT:
+
+real conversations, to generate realistic interactions between a speech - based ai model and a user. we then synthesize them with our multi - stream streaming tts described in appendix c, leading to more than 20k hours of synthetic speech data. to give moshi its own consistent voice, we also condition the tts engine on the voice of a single actor, who recorded monologues covering more than 70 speaking styles, as listed in table 19. experiments on voice consistency reported in section 6. 3 show that simply using a consistent voice for moshi during instruction tuning is enough to guarantee almost surely that it does not use another voice, without further control during inference. in contrast, the voice of the second audio stream ( the user ) is randomly sampled for each example, giving more robustness to different speaking conditions and accents. to generate the transcripts, we use different prompts, aiming at capturing different kinds of interactions between a user and moshi. first, we generate conversations about general knowledge, by starting from a few wikipedia paragraphs or stackexchange posts, which we refer to as context. this ensures that moshi ’ s conversations cover a wide range of topics, such as history, cooking advice or pop culture. more precisely, using a given context, we obtain a summary of a potential discussion with the following prompt : 18
+

@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: ATT-03
+===========================================================================
+
+Question: Why does the Transformer use positional encodings, and how are they generated in the proposed model?
+Expected paper: 1706.03762v7
+Answerable: True
+
+Expected evidence:
+Position information added to embeddings; sine and cosine functions at different frequencies.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 1706.03762v7
+PAGE: 2
+SIMILARITY SCORE: 0.7465
+
+PASSAGE TEXT:
+
+] and convs2s [ 9 ], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions. in these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for convs2s and logarithmically for bytenet. this makes it more difficult to learn dependencies between distant positions [ 12 ]. in the transformer this is reduced to a constant number of operations, albeit at the cost of reduced effective resolution due to averaging attention - weighted positions, an effect we counteract with multi - head attention as described in section 3. 2. self - attention, sometimes called intra - attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. self - attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task - independent sentence representations [ 4, 27, 28, 22 ]. end - to - end memory networks are based on a recurrent attention mechanism instead of sequence - aligned recurrence and have been shown to perform well on simple - language question answering and language modeling tasks [ 34 ]. to the best of our knowledge, however, the transformer is the first transduction model relying entirely on self - attention to compute representations of its input and output without using sequence - aligned rnns or convolution. in the following sections, we will describe the transformer, motivate self - attention and discuss its advantages over models such as [ 17, 18 ] and [ 9 ]. 3 model architecture most competitive neural sequence transduction models have an encoder - decoder structure [ 5, 2, 35 ]. here, the encoder maps an input sequence of symbol representations ( x1,..., xn ) to a sequence of continuous representations z = ( z1,..., zn ). given z, the decoder then generates an output sequence ( y1,..., ym ) of symbols one element at a time. at each step the model is
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 19
+SIMILARITY SCORE: 0.7428
+
+PASSAGE TEXT:
+
+hypothesis ( ii ) holds, then we would expect that encoders / decoders using some mamba layers to be better than pure transformer layers. as demonstrated in figure 10, mamba layers prove significantly important even when processing bpe tokens rather than raw bytes, providing evidence for the second hypothesis. we hypothesize that this consistent advantage across input granularities stems from fundamental architectural differences between ssms and transformers. while transformers naturally store complete key - value caches for all positions, ssms are designed to compress information into fixed - size states. this compression - oriented architecture aligns naturally with our chunking mechanism, which requires aggregating multiple input vectors into consolidated representations. the inherent compression capability of mamba layers makes them particularly well - suited for the encoder and decoder roles in our hierarchical architecture ( gu 2025 ). based on these findings, we employ mamba layers throughout all encoders and decoders in our final h - net configuration, as detailed in table 1. 19
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 1706.03762v7
+PAGE: 1
+SIMILARITY SCORE: 0.7413
+
+PASSAGE TEXT:
+
+parsing both with large and limited training data. ∗equal contribution. listing order is random. jakob proposed replacing rnns with self - attention and started the effort to evaluate this idea. ashish, with illia, designed and implemented the first transformer models and has been crucially involved in every aspect of this work. noam proposed scaled dot - product attention, multi - head attention and the parameter - free position representation and became the other person involved in nearly every detail. niki designed, implemented, tuned and evaluated countless model variants in our original codebase and tensor2tensor. llion also experimented with novel model variants, was responsible for our initial codebase, and efficient inference and visualizations. lukasz and aidan spent countless long days designing various parts of and implementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating our research. † work performed while at google brain. ‡ work performed while at google research. 31st conference on neural information processing systems ( nips 2017 ), long beach, ca, usa. arxiv : 1706. 03762v7 [ cs. cl ] 2 aug 2023
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 1706.03762v7
+PAGE: 10
+SIMILARITY SCORE: 0.7394
+
+PASSAGE TEXT:
+
+work, we presented the transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder - decoder architectures with multi - headed self - attention. for translation tasks, the transformer can be trained significantly faster than architectures based on recurrent or convolutional layers. on both wmt 2014 english - to - german and wmt 2014 english - to - french translation tasks, we achieve a new state of the art. in the former task our best model outperforms even all previously reported ensembles. we are excited about the future of attention - based models and plan to apply them to other tasks. we plan to extend the transformer to problems involving input and output modalities other than text and to investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video. making generation less sequential is another research goals of ours. the code we used to train and evaluate our models is available at https : / / github. com / tensorflow / tensor2tensor. acknowledgements we are grateful to nal kalchbrenner and stephan gouws for their fruitful comments, corrections and inspiration. references [ 1 ] jimmy lei ba, jamie ryan kiros, and geoffrey e hinton. layer normalization. arxiv preprint arxiv : 1607. 06450, 2016. [ 2 ] dzmitry bahdanau, kyunghyun cho, and yoshua bengio. neural machine translation by jointly learning to align and translate. corr, abs / 1409. 0473, 2014. [ 3 ] denny britz, anna goldie, minh - thang luong, and quoc v. le. massive exploration of neural machine translation architectures. corr, abs / 1703. 03906, 2017. [ 4 ] jianpeng cheng, li dong, and mirella lapata. long short - term memory - networks for machine reading. arxiv preprint arxiv : 1601. 06733, 2016. 10
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 1706.03762v7
+PAGE: 3
+SIMILARITY SCORE: 0.7372
+
+PASSAGE TEXT:
+
+figure 1 : the transformer - model architecture. the transformer follows this overall architecture using stacked self - attention and point - wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of figure 1, respectively. 3. 1 encoder and decoder stacks encoder : the encoder is composed of a stack of n = 6 identical layers. each layer has two sub - layers. the first is a multi - head self - attention mechanism, and the second is a simple, position - wise fully connected feed - forward network. we employ a residual connection [ 11 ] around each of the two sub - layers, followed by layer normalization [ 1 ]. that is, the output of each sub - layer is layernorm ( x + sublayer ( x ) ), where sublayer ( x ) is the function implemented by the sub - layer itself. to facilitate these residual connections, all sub - layers in the model, as well as the embedding layers, produce outputs of dimension dmodel = 512. decoder : the decoder is also composed of a stack of n = 6 identical layers. in addition to the two sub - layers in each encoder layer, the decoder inserts a third sub - layer, which performs multi - head attention over the output of the encoder stack. similar to the encoder, we employ residual connections around each of the sub - layers, followed by layer normalization. we also modify the self - attention sub - layer in the decoder stack to prevent positions from attending to subsequent positions. this masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position i can depend only on the known outputs at positions less than i. 3. 2 attention an attention function can be described as mapping a query and a set of key - value pairs to an output, where the query, keys, values, and output are all vectors. the output is computed as a weighted sum 3
+

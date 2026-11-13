@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: ATT-02
+===========================================================================
+
+Question: How does multi-head attention differ from using a single attention function?
+Expected paper: 1706.03762v7
+Answerable: True
+
+Expected evidence:
+Multiple learned projections; parallel attention heads; concatenation and final projection.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 1706.03762v7
+PAGE: 5
+SIMILARITY SCORE: 0.7915
+
+PASSAGE TEXT:
+
+output values. these are concatenated and once again projected, resulting in the final values, as depicted in figure 2. multi - head attention allows the model to jointly attend to information from different representation subspaces at different positions. with a single attention head, averaging inhibits this. multihead ( q, k, v ) = concat ( head1,..., headh ) w o where headi = attention ( qw q i, kw k i, v w v i ) where the projections are parameter matrices w q i ∈rdmodel×dk, w k i ∈rdmodel×dk, w v i ∈rdmodel×dv and w o ∈rhdv×dmodel. in this work we employ h = 8 parallel attention layers, or heads. for each of these we use dk = dv = dmodel / h = 64. due to the reduced dimension of each head, the total computational cost is similar to that of single - head attention with full dimensionality. 3. 2. 3 applications of attention in our model the transformer uses multi - head attention in three different ways : • in " encoder - decoder attention " layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. this allows every position in the decoder to attend over all positions in the input sequence. this mimics the typical encoder - decoder attention mechanisms in sequence - to - sequence models such as [ 38, 2, 9 ]. • the encoder contains self - attention layers. in a self - attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder. each position in the encoder can attend to all positions in the previous layer of the encoder. • similarly, self - attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position. we need to prevent leftward information flow in the decoder to preserve the auto - regress
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 1706.03762v7
+PAGE: 4
+SIMILARITY SCORE: 0.7458
+
+PASSAGE TEXT:
+
+products by 1 √dk. 3. 2. 2 multi - head attention instead of performing a single attention function with dmodel - dimensional keys, values and queries, we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to dk, dk and dv dimensions, respectively. on each of these projected versions of queries, keys and values we then perform the attention function in parallel, yielding dv - dimensional 4to illustrate why the dot products get large, assume that the components of q and k are independent random variables with mean 0 and variance 1. then their dot product, q · k = pdk i = 1 qiki, has mean 0 and variance dk. 4
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 1706.03762v7
+PAGE: 4
+SIMILARITY SCORE: 0.7378
+
+PASSAGE TEXT:
+
+scaled dot - product attention multi - head attention figure 2 : ( left ) scaled dot - product attention. ( right ) multi - head attention consists of several attention layers running in parallel. of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key. 3. 2. 1 scaled dot - product attention we call our particular attention " scaled dot - product attention " ( figure 2 ). the input consists of queries and keys of dimension dk, and values of dimension dv. we compute the dot products of the query with all keys, divide each by √dk, and apply a softmax function to obtain the weights on the values. in practice, we compute the attention function on a set of queries simultaneously, packed together into a matrix q. the keys and values are also packed together into matrices k and v. we compute the matrix of outputs as : attention ( q, k, v ) = softmax ( qkt √dk ) v ( 1 ) the two most commonly used attention functions are additive attention [ 2 ], and dot - product ( multi - plicative ) attention. dot - product attention is identical to our algorithm, except for the scaling factor of 1 √dk. additive attention computes the compatibility function using a feed - forward network with a single hidden layer. while the two are similar in theoretical complexity, dot - product attention is much faster and more space - efficient in practice, since it can be implemented using highly optimized matrix multiplication code. while for small values of dk the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of dk [ 3 ]. we suspect that for large values of dk, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. to counteract this effect, we scale the dot products by 1 √dk. 3. 2. 2 multi - head attention instead of performing a single attention function with dmodel - dimensional keys, values and queries, we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 1706.03762v7
+PAGE: 6
+SIMILARITY SCORE: 0.6945
+
+PASSAGE TEXT:
+
+10000 · 2π. we chose this function because we hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset k, pepos + k can be represented as a linear function of pepos. we also experimented with using learned positional embeddings [ 9 ] instead, and found that the two versions produced nearly identical results ( see table 3 row ( e ) ). we chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training. 4 why self - attention in this section we compare various aspects of self - attention layers to the recurrent and convolu - tional layers commonly used for mapping one variable - length sequence of symbol representations ( x1,..., xn ) to another sequence of equal length ( z1,..., zn ), with xi, zi ∈rd, such as a hidden layer in a typical sequence transduction encoder or decoder. motivating our use of self - attention we consider three desiderata. one is the total computational complexity per layer. another is the amount of computation that can be parallelized, as measured by the minimum number of sequential operations required. the third is the path length between long - range dependencies in the network. learning long - range dependencies is a key challenge in many sequence transduction tasks. one key factor affecting the ability to learn such dependencies is the length of the paths forward and backward signals have to traverse in the network. the shorter these paths between any combination of positions in the input and output sequences, the easier it is to learn long - range dependencies [ 12 ]. hence we also compare the maximum path length between any two input and output positions in networks composed of the different layer types. as noted in table 1, a self - attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires o ( n ) sequential operations. in terms of computational complexity, self - attention layers are faster than recurrent layers when the sequence 6
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 1706.03762v7
+PAGE: 3
+SIMILARITY SCORE: 0.6740
+
+PASSAGE TEXT:
+
+figure 1 : the transformer - model architecture. the transformer follows this overall architecture using stacked self - attention and point - wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of figure 1, respectively. 3. 1 encoder and decoder stacks encoder : the encoder is composed of a stack of n = 6 identical layers. each layer has two sub - layers. the first is a multi - head self - attention mechanism, and the second is a simple, position - wise fully connected feed - forward network. we employ a residual connection [ 11 ] around each of the two sub - layers, followed by layer normalization [ 1 ]. that is, the output of each sub - layer is layernorm ( x + sublayer ( x ) ), where sublayer ( x ) is the function implemented by the sub - layer itself. to facilitate these residual connections, all sub - layers in the model, as well as the embedding layers, produce outputs of dimension dmodel = 512. decoder : the decoder is also composed of a stack of n = 6 identical layers. in addition to the two sub - layers in each encoder layer, the decoder inserts a third sub - layer, which performs multi - head attention over the output of the encoder stack. similar to the encoder, we employ residual connections around each of the sub - layers, followed by layer normalization. we also modify the self - attention sub - layer in the decoder stack to prevent positions from attending to subsequent positions. this masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position i can depend only on the known outputs at positions less than i. 3. 2 attention an attention function can be described as mapping a query and a set of key - value pairs to an output, where the query, keys, values, and output are all vectors. the output is computed as a weighted sum 3
+

@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: DCH-03
+===========================================================================
+
+Question: How does a byte-level H-Net compare with a BPE-based Transformer under compute- and data-matched conditions?
+Expected paper: 2507.07955v2
+Answerable: True
+
+Expected evidence:
+A one-stage byte-level H-Net outperforms a strong Transformer operating over BPE tokens.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2507.07955v2
+PAGE: 12
+SIMILARITY SCORE: 0.8100
+
+PASSAGE TEXT:
+
+usage of mamba in the outer networks ( section 2. 1 ). spacebyte + + is in turn worse than h - net ( space ), validating our improved signal propagation techniques ( section 2. 3 ). • h - net ( space ) is a very strong model reaching the performance of the bpe transformer, validating the effect of data - dependent chunking strategies together with a well - designed hierarchical architecture. • h - net ( 1 - stage ) is stronger than h - net ( space ), validating that our dynamic chunking mechanism successfully learns how to segment data in a context - dependent way that improves over strong heuristics. • h - net ( 2 - stage ) is significantly better than h - net ( 1 - stage ), validating that iterated dynamic chunking can potentially learn a nested hierarchy of useful features, and leverage compute and parameters even more effectively. xl scale. at the xl scale, we zoom in more closely and compare only the strongest set of methods : spacebyte + +, h - net ( space ), h - net ( 1 - stage ), and h - net ( 2 - stage ). the same trends hold as at the large scale. our spacebyte + + baseline is strong, but slightly worse than the bpe transformer baseline. on the other hand, all byte - level h - net methods start off worse than the token - level transformer, but scale better after enough data. h - net ( space ), h - net ( 1 - stage ), and h - net ( 2 - stage ) cross over the tokenized transformer after just 200b bytes, 100b bytes, and 30b bytes respectively. beyond these points, h - net ’ s performance advantage widens progressively, demonstrating that the benefits of learnable dynamic chunking get strengthened with additional training data, as the model continuously refines its chunking strategy. downstream evaluations. table 2 presents zero - shot accuracy across diverse downstream benchmarks ( paperno et al. 2016 ; zellers et al. 2019 ; bisk et al. 2020 ; clark, cowhey, et al. 2018 ; sakaguchi et al. 2021 ;
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 13
+SIMILARITY SCORE: 0.8052
+
+PASSAGE TEXT:
+
+50b 100b 150b 200b 250b 300b 350b total training bytes 0. 75 0. 80 0. 85 0. 90 0. 95 1. 00 1. 05 validation bits - per - byte # flops matched to gpt - 3 large ( 760m ) 50b 100b 150b 200b 250b 300b 350b total training bytes 0. 75 0. 80 0. 85 0. 90 0. 95 200b 100b 30b h - net ( 2 - stage ) overtakes ( bpe ) transformer with 30b training bytes # flops matched to gpt - 3 xl ( 1. 3b ) h - net ( 2 - stage ) h - net ( 1 - stage ) h - net ( space ) h - net ( 6 - pool ) spacebyte + + spacebyte llamabyte ( swa ) llamabyte ( global ) ( bpe ) transformer mambabyte figure 3 : validation bits - per - byte ( bpb ) throughout training for different models at large ( 760m, left ) and xl ( 1. 3b, right ) scales with matched computational and data budgets for training. all models but transformer take raw byte inputs ( transformer uses gpt - 2 tokenizer ). vertical dotted lines indicate crossover points where h - net begins to outperform transformer with predefined bpe tokenization. from the curves we can clearly see the following : ( 1 ) all hierarchical models ( i. e., spacebyte + +, h - net variants ) outperform the isotropic models ( i. e., transformer, mambabyte, llamabyte ) ; ( 2 ) dynamic chunking is more powerful than bpe tokenizers ; and ( 3 ) dc is more effective than other chunking strategies. furthermore, h - net ’ s 2 - stage variant consistently outperforms 1 - stage across both scales, demonstrating the effectiveness of deeper hierarchies. see table 1 for architectural details. table 2 : zero - shot performance comparison across multiple benchmarks, all data - / flop - matched. evaluation results on seven downstream tasks at both
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 37
+SIMILARITY SCORE: 0.7930
+
+PASSAGE TEXT:
+
+to that of the tokenizer, embedding module, and lm head in a traditional bpe - based language model ; together, these modules interconvert between raw text and an embedding space that the main model backbone can process. given this similarity, we investigated whether it would be possible to convert a bpe - tokenized model directly into a byte level h - net. to do this, we trained a 1 - stage h - net with frozen main network initialized from the backbone of llama 3. 2 3b ( base ). our h - net uses 4 mamba - 2 layers without mlps for both the encoder and decoder with a hidden dimension of 1536. because the llama model has a hidden dimension of 3072, we add mlp adapters with 37
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 5
+SIMILARITY SCORE: 0.7909
+
+PASSAGE TEXT:
+
+##er layers for two reasons : compressed representations align well with transformers ’ strengths in processing discrete, semantically - rich tokens, and this choice enables more controlled comparison with traditional bpe - based transformer baselines in our experiments. however, the modular design also allows straightforward substitution with alternative architectures ( e. g., a state space model, hybrid, or h - net itself ) as explored in our ablations. architectural guidelines. compared to standard isotropic models, the h - net ’ s structure introduces several new dimensions of architectural parameters to balance the parameter / compute allocation to each network. to simplify the search space, we follow a few general guidelines. 7we also sometimes refer to it as a probability — it is interpreted as such in appendix f — although we do not use it as a formal probability. 5
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 23
+SIMILARITY SCORE: 0.7841
+
+PASSAGE TEXT:
+
+net ’ s superior performance on downstreams provides supporting evidence that it scales better than bpe models. 5 conclusion major advances in deep learning have resulted from powerful architectural innovations enabling previously - handcrafted features to be learned from data, from cnns learning visual features ( krizhevsky, sutskever, and hinton 2012 ) to trans - formers discovering linguistic patterns ( vaswani et al. 2017 ). h - nets similarly unlock the ability to remove another layer of pre - processing, such as tokenizers, and instead learn them end - to - end. this ability results from a set of new techniques we introduce that work together to form a dynamic chunking mechanism, which is able to learn content - and context - dependent discrete segmentation strategies through standard gradient - based optimization. a single - stage byte - level h - net already exceeds the performance of standard tokenized language models, and recursive h - nets with multiple stages of dynamic chunking further improve its scaling. h - nets substantially remedy issues with tokenizers, display very strong performance on diverse languages and language - like modalities, and more broadly may serve as the backbone of general foundation models that do more learning with less processing. 23
+

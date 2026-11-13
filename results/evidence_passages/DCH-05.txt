@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: DCH-05
+===========================================================================
+
+Question: What clinical accuracy does H-Net achieve on medical tumor-classification datasets?
+Expected paper: 2507.07955v2
+Answerable: False
+
+Expected evidence:
+The paper does not report medical tumor-classification experiments.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2507.07955v2
+PAGE: 17
+SIMILARITY SCORE: 0.7014
+
+PASSAGE TEXT:
+
+mamba - 2 ). each h - net model outperforms the corresponding isotropic model. we empirically find that the e0 = m3t1 encoder architecture slightly outper - forms a pure mamba - 2 encoder e0 = m4 ( appendix e. 3 ). 1b 2b 3b 4b 5b 6b 7b 8b training base pairs seen 2. 75 2. 80 2. 85 2. 90 2. 95 3. 6x more data efficient than isotropic model perplexity on hg38 transformer mamba - 2 h - net ( trans. ) h - net ( mamba ) figure 6 : scaling performance on hg38 during the stable phase of training. each h - net model achieves the same pre - decay perplexity of the corresponding isotropic model with approximately 3. 6× less data. models, we used a downsampling ratio of = 3. all models were trained with a of 512, which was used for all isotropic modules of h - net ( including the main network ). previous work has shown that ssms show improved dna modeling ability compared to transformers ( gu and dao 2024 ), and we find that this effect is preserved when examining transformers vs. mamba - 2 as the main network ( see table 5 ). this finding suggests that existing layer selection principles can be applied when deciding main network architecture. in fact, by directly comparing the perplexity curves during the stable phase of training ( figure 6 ), we find that h - net models can achieve similar performance to isotropic models with just 3. 6× the amount of data, a finding that holds for both choices of main network architecture. 3. 3 ablation studies for ablation studies, we employ h - net at large scale following the configurations in table 1, training on 36b tokens randomly sampled from fineweb - edu. importance of components in h - net. figure 7 illustrates the impact of each architectural component on both model performance and compression ratio ( + 1 / ) stability during training. we conduct three targeted ablations : ( i ) using direct upsampling
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 39
+SIMILARITY SCORE: 0.6981
+
+PASSAGE TEXT:
+
+requires knowing the next two bytes as well. while the h - net does use the main network, it is not able to exactly match the behavior of the original tokenized model. instead, it is finding slightly different representations of tokens to use in the main stage. recent work has shown that tokenized language models can process tokenization sequences distinct from the “ canonical " greedy tokenization ( vieira et al. 2024 ), so it is possible our h - net found another alternate representation that the pretrained model could process. remark. one might ask if our distilled model has simply learned to tokenize on spaces ( since spaces are always the start of a new token ). it has not. simply tokenizing on spaces would yield a sub - 95 % boundary prediction accuracy ; however, our distilled model gets boundary prediction accuracy above 99. 5 %. this suggests that the resulting h - net is able to recognize some, but not all, subword boundaries. results. the results from our distillation procedure are shown in table 8. h - net is able to approximately match performance across almost all benchmarks ; in general, h - net is not able to replicate the behavior of the tokenized model exactly, so it is not unexpected that the benchmarks are slightly worse. byte - latent transformer ( pagnoni et al. 2024, table 5 ) performs a similar experiment, and they see a greater gap among most benchmarks ( particularly piqa, arc - easy, and arc - challenge ) despite using a much larger amount of data ( 220b tokens versus 189b bytes ) ; it is possible that this performance difference is due to the fact that a blt module cannot be supervised to align boundaries the way that end - to - end dc can. 39
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 16
+SIMILARITY SCORE: 0.6892
+
+PASSAGE TEXT:
+
+three models at the 1. 3b gpt - 3 xl scale : h - net ( 2 - stage ), h - net ( space ), and transformer. we maintain the same bytes per gradient step ( 256 batch size with 8192 utf - 8 encoded bytes per example ) as the main text experiments. for the h - net ( 2 - stage ), we use the same target downsampling ratio ( = = 3 ) as the main experiments. unlike bpe or spacelike - based tokenization, whose downsampling ratios can vary widely by dataset, h - net allows for using similar compute budgets without much adjustment. for h - net ( space ), we use the same definition of spacelike as the original spacebyte paper ( slagle 2024 ), and for bpe, we use the llama3 tokenizer ( grattafiori et al. 2024 ), as the gpt2 tokenizer attains very poor downsampling ratios on both datasets. despite this change, both h - net ( space ) and transformer ( bpe ) still have highly varied downsampling ratios between ordinary ( primarily english ) language, chinese, and code. on the other hand, h - net can adhere to a target ratio regardless of dataset, chunking into concepts at appropriate ratios. even with the llama3 tokenizer, we find that h - net ( 2 - stage ) scales better than bpe transformer and h - net ( space ) on both chinese and code ( figure 5 ), and achieves lower compression after the decay phase ( table 4 ). we additionally measure the performance of each chinese - language model on the chinese split of xwinograd, a multilingual winograd schema challenge ( muennighoff, wang, et al. 2023 ), where h - net ( 2 - stage ) is significantly better than h - net ( space ) which in turn is better than transformer ( table 4 ). dna ( human genome ). dna is a setting that presents both a unique promise and challenge for hierarchical modeling. for one, handcrafted tokens do not work well on dna
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 2
+SIMILARITY SCORE: 0.6816
+
+PASSAGE TEXT:
+
+and a smoothing module which interpolates representations using the router ’ s outputs, attenuating the effect of uncertain boundaries and significantly improving learnability. by combining these with a new auxiliary loss function that targets desired downsampling ratios, and modern techniques for gradient - based learning of discrete choices ( fedus, zoph, and shazeer 2022 ; bengio, leonard, and courville 2013 ), dc lets an h - net learn how to compress data in a fully end - to - end fashion. signal propagation. we introduce several architectural and training techniques to improve stability and scalability during end - to - end optimization. these include : ( i ) carefully placing projections and normalization layers to balance signal propagation between interacting sub - networks, and ( ii ) adjusting optimization parameters for each layer based on its dimensionality and effective batch size, which changes between stages of the hierarchical structure. altogether, h - net learns segmentation strategies optimized jointly with the main backbone, dynamically compressing input vectors based on contextual information into meaningful chunks. h - net represents the first truly end - to - end, tokenizer - free 3non - hierarchical models comprised of repeated blocks, such as the standard transformer ( vaswani et al. 2017 ). 2
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 23
+SIMILARITY SCORE: 0.6803
+
+PASSAGE TEXT:
+
+generated ; thus, it can be viewed as a model that can dynamically allocate latent test - time compute as well. additionally, as the motivation of h - net is to recursively build higher - order abstractions, we hypothesize that it would be more effective as a reasoning model that operates over its own learned concepts instead of arbitrary token inputs. sparsity. h - net can be viewed as a form of dynamic sparsity or conditional computation, and is related to concepts such as mixture - of - experts ( moe ) ( fedus, zoph, and shazeer 2022 ; shazeer et al. 2017 ) and mixture - of - depths ( raposo et al. 2024 ). we showed that at the byte level, dc is much more effective than moe when controlled for parameters and compute ( figure 12 ), and leave fleshing out further connections and comparisons for future work. we also note that h - net can be viewed as orthogonal to moe, which can be applied to sparsify any mlp layers within an h - net. scale. the largest models in this paper were flop - matched to the equivalent of a 1. 3b parameter transformer. while we believe that this provides sufficient evidence for the effectiveness of this approach, it remains to validate h - net at larger model sizes of 3b, 7b, and beyond. we note that while we observed no instabilities at our model sizes, the added complexity of h - net and inherent difficulties of learning end - to - end discrete selection problems may require more serious investigation of potential stability challenges at larger scale. scaling laws. formally estimating the scaling behavior of a model requires calculating scaling law coefficients that sweep across a large range of model sizes and compute horizons ( kaplan et al. 2020 ; hoffmann et al. 2022 ). we did not pursue this formal approach in this paper due to resource constraints. instead, we used a simpler heuristic for the scaling behavior of our models, at least with respect to data. we note that • essentially all modern models live in the “ overtrained " regime ( with respect to the formal scaling laws ) due to inference considerations at deployment
+

@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: DCH-01
+===========================================================================
+
+Question: What is dynamic chunking, and how does the model learn its segmentation strategy?
+Expected paper: 2507.07955v2
+Answerable: True
+
+Expected evidence:
+Content- and context-dependent segmentation learned jointly with the rest of the model.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2507.07955v2
+PAGE: 33
+SIMILARITY SCORE: 0.8151
+
+PASSAGE TEXT:
+
+tuning entropy heuristics ( iii ) using hash embeddings, which can be considered an orthogonal architectural component which may be incorporated into h - net as well if desired. instead, we compared against spacebyte ( and our own stronger versions of spacebyte ), which we believe to be representative of the external - chunking family of methods and competitive to the entropy - based chunking strategy of blt ( for our main experiments such as english data ). a. 1. 4 dynamic chunking the ideal tokenizer - free architecture would incorporate a dynamic chunking method that attempts to learn optimal segmentation strategies directly from data through gradient - based optimization. such a method would be optimized jointly together with the outer ( fine - resolution ) and inner ( coarse - resolution ) networks, and be able to create boundaries that are content - and context - aware. the only prior work we are aware of that attempted a true dynamic chunking method is ( one variant of ) the dynamic pooling transformer ( dpt ) ( nawrot, chorowski, et al. 2023 ), which incorporates stochastic exploration mechanisms using gumbel noise ( jang, gu, and poole 2017 ; maddison, mnih, and teh 2017 ) to enable differentiable boundary selection during training. despite their theoretical flexibility, trainable methods encounter critical challenges. the stochastic exploration process requires careful tuning of noise magnitudes and introduces high - variance gradients that destabilize training, making it difficult to scale to larger model sizes. in practice, the end - to - end ( stochastic reparameterization ) variant of dpt underperformed the external chunking variants ( drawing boundaries on entropy spikes or whitespaces ) ( nawrot, chorowski, et al. 2023 ), illustrating the difficulty of this problem. furthermore, the training instability prevented dpt from expanding to multiple hierarchical stages, constraining these methods to single - stage chunking. we additionally highlight simple architectural modifications of dpt motivated by improved inference ( fleshman and van durme 2023 ) or multilingual ability ( ahia, kumar, gonen, hofmann, et al
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 2
+SIMILARITY SCORE: 0.7986
+
+PASSAGE TEXT:
+
+net ) that compresses raw data through a recursive, data - dependent dynamic chunking ( dc ) process ( figure 1 ). h - nets match the efficiency of tokenized pipelines while substantially improving modeling ability, by replacing handcrafted heuristics with content - aware and context - dependent segmentation learned from data. hierarchical processing. the h - net adopts the hierarchical architecture from prior work ( goel et al. 2022 ; nawrot, tworkowski, et al. 2022 ; slagle 2024 ), resembling an autoregressive u - net ( ronneberger, fischer, and brox 2015 ) : ( i ) raw data is processed by a small encoder network, ( ii ) then downsampled and passed through a main network operating on compressed chunks, ( iii ) and finally upsampled before being passed through a decoder network operating on the original resolution. this modularity creates a natural processing hierarchy where outer stages capture fine - grained patterns while inner stages operate on coarse representations akin to traditional tokens. crucially, while the main network contains the bulk of parameters and can be any standard architecture designed for operating on tokenized language — such as a transformer ( vaswani et al. 2017 ) or state space model ( ssm ) ( gu and dao 2024 ) — we show that the encoder and decoder networks are strongly improved by using ssms, which have an inductive bias for compression ( gu 2025 ). dynamic chunking. h - net ’ s core is a novel dynamic chunking ( dc ) mechanism which interfaces between the main network and the encoder / decoder networks, learning how to segment data while using standard differentiable optimization. dc is composed of two complementary new techniques : ( i ) a routing module which predicts boundaries between adjacent elements through a similarity score ( ii ) and a smoothing module which interpolates representations using the router ’ s outputs, attenuating the effect of uncertain boundaries and significantly improving learnability. by combining these with a new auxiliary loss function that targets desired downsampling ratios, and modern techniques for gradient - based learning of discrete choices (
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 3
+SIMILARITY SCORE: 0.7928
+
+PASSAGE TEXT:
+
+( c ) smoothing module n d o f t o k e s t h e _ _ chunking! h e _ e n d _ o f _ t o k e n s! dechunking.. '! '! " # '! " $ '! " % 1 − '! 1 − '! " # 1 − '! " $ ( d ) upsampler ( b ) downsampler ( a ) routing module / 0 - / 0 " 0 " # $ *. + " dynamic chunking n _ e figure 1 : ( left ) architectural overview of h - net with a two - stage hierarchical design ( = 2 ). ( right ) dynamic chunking ( dc ). ( bottom - right ) key components of a chunking layer : ( a ) a routing module for dynamically drawing chunk boundaries, and ( b ) a downsampler that selectively retains vectors based on boundary indicators, reducing sequence length while preserving semantically significant positions. ( top - right ) key components of a dechunking layer : ( c ) a smoothing module for converting discrete chunks into interpolated representations, and ( d ) an upsampler that restores compressed vectors to their original resolution based on boundary indicators. linear in equation ( 3 ) and ste in equation ( 9 ) are omitted in the illustration for brevity. language model : with a single stage of dynamic chunking, a byte - level h - net matches the perplexity and downstream performance of a strong bpe - tokenized transformer at sizes exceeding 1b parameters. empirically, the dynamic chunking module naturally compresses data to a similar resolution as bpe tokenizers ( 4. 5 - 5 bytes / chunk ) and qualitatively learns meaningful boundaries, all without any external supervision or heuristics. 3
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 1
+SIMILARITY SCORE: 0.7806
+
+PASSAGE TEXT:
+
+dynamic chunking for end - to - end hierarchical sequence modeling sukjun hwang carnegie mellon university sukjunh @ cs. cmu. edu brandon wang cartesia ai brandon. wang @ cartesia. ai albert gu carnegie mellon university, cartesia ai agu @ cs. cmu. edu, albert @ cartesia. ai abstract major progress on language models ( lms ) in recent years has largely resulted from moving away from specialized models designed for specific tasks, to general models based on powerful architectures ( e. g. the transformer ) that learn everything from raw data. despite this trend, pre - processing steps such as tokenization remain a barrier to true end - to - end foundation models. we introduce a collection of new techniques that enable a dynamic chunking mechanism which automatically learns content - and context - dependent segmentation strategies learned jointly with the rest of the model. incorporating this into an explicit hierarchical network ( h - net ) allows replacing the ( implicitly hierarchical ) tokenization – lm – detokenization pipeline with a single model learned fully end - to - end. when compute - and data - matched, an h - net with one stage of hierarchy operating at the byte level outperforms a strong transformer language model operating over bpe tokens. iterating the hierarchy to multiple stages further increases its performance by modeling multiple levels of abstraction, demonstrating significantly better scaling with data and matching the token - based transformer of twice its size. h - nets pretrained on english show significantly increased character - level robustness, and qualitatively learn meaningful data - dependent chunking strategies without any heuristics or explicit supervision. finally, the h - net ’ s improvement over tokenized pipelines is further increased in languages and modalities with weaker tokenization heuristics, such as chinese and code, or dna sequences ( nearly 4× improvement in data efficiency over baselines ), showing the potential of true end - to - end models that learn and scale better from unprocessed data. 1 introduction a broad goal of deep learning is to learn meaningful patterns from raw data, automatically extracting features and building abstractions in an end
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 23
+SIMILARITY SCORE: 0.7780
+
+PASSAGE TEXT:
+
+net ’ s superior performance on downstreams provides supporting evidence that it scales better than bpe models. 5 conclusion major advances in deep learning have resulted from powerful architectural innovations enabling previously - handcrafted features to be learned from data, from cnns learning visual features ( krizhevsky, sutskever, and hinton 2012 ) to trans - formers discovering linguistic patterns ( vaswani et al. 2017 ). h - nets similarly unlock the ability to remove another layer of pre - processing, such as tokenizers, and instead learn them end - to - end. this ability results from a set of new techniques we introduce that work together to form a dynamic chunking mechanism, which is able to learn content - and context - dependent discrete segmentation strategies through standard gradient - based optimization. a single - stage byte - level h - net already exceeds the performance of standard tokenized language models, and recursive h - nets with multiple stages of dynamic chunking further improve its scaling. h - nets substantially remedy issues with tokenizers, display very strong performance on diverse languages and language - like modalities, and more broadly may serve as the backbone of general foundation models that do more learning with less processing. 23
+

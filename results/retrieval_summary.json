@@ -1,0 +1,29 @@
+{
+    "A": {
+        "total_questions": 15,
+        "answerable_questions": 13,
+        "unanswerable_questions": 2,
+        "target_paper_hits": 13,
+        "target_paper_hit_rate": 1.0,
+        "mean_reciprocal_rank": 1.0,
+        "mean_retrieval_time_ms": 88.26
+    },
+    "B": {
+        "total_questions": 15,
+        "answerable_questions": 13,
+        "unanswerable_questions": 2,
+        "target_paper_hits": 13,
+        "target_paper_hit_rate": 1.0,
+        "mean_reciprocal_rank": 1.0,
+        "mean_retrieval_time_ms": 71.68
+    },
+    "C": {
+        "total_questions": 15,
+        "answerable_questions": 13,
+        "unanswerable_questions": 2,
+        "target_paper_hits": 13,
+        "target_paper_hit_rate": 1.0,
+        "mean_reciprocal_rank": 1.0,
+        "mean_retrieval_time_ms": 1161.55
+    }
+}

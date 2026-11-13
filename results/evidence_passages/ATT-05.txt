@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: ATT-05
+===========================================================================
+
+Question: What is the exact GPU memory consumption of GPT-4 during inference?
+Expected paper: 1706.03762v7
+Answerable: False
+
+Expected evidence:
+The paper does not discuss GPT-4 or provide its inference memory consumption.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 1706.03762v7
+PAGE: 8
+SIMILARITY SCORE: 0.6702
+
+PASSAGE TEXT:
+
+number of gpus used, and an estimate of the sustained single - precision floating - point capacity of each gpu 5. 6. 2 model variations to evaluate the importance of different components of the transformer, we varied our base model in different ways, measuring the change in performance on english - to - german translation on the 5we used values of 2. 8, 3. 7, 6. 0 and 9. 5 tflops for k80, k40, m40 and p100, respectively. 8
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 1706.03762v7
+PAGE: 8
+SIMILARITY SCORE: 0.6636
+
+PASSAGE TEXT:
+
+##ity, as the model learns to be more unsure, but improves accuracy and bleu score. 6 results 6. 1 machine translation on the wmt 2014 english - to - german translation task, the big transformer model ( transformer ( big ) in table 2 ) outperforms the best previously reported models ( including ensembles ) by more than 2. 0 bleu, establishing a new state - of - the - art bleu score of 28. 4. the configuration of this model is listed in the bottom line of table 3. training took 3. 5 days on 8 p100 gpus. even our base model surpasses all previously published models and ensembles, at a fraction of the training cost of any of the competitive models. on the wmt 2014 english - to - french translation task, our big model achieves a bleu score of 41. 0, outperforming all of the previously published single models, at less than 1 / 4 the training cost of the previous state - of - the - art model. the transformer ( big ) model trained for english - to - french used dropout rate pdrop = 0. 1, instead of 0. 3. for the base models, we used a single model obtained by averaging the last 5 checkpoints, which were written at 10 - minute intervals. for the big models, we averaged the last 20 checkpoints. we used beam search with a beam size of 4 and length penalty α = 0. 6 [ 38 ]. these hyperparameters were chosen after experimentation on the development set. we set the maximum output length during inference to input length + 50, but terminate early when possible [ 38 ]. table 2 summarizes our results and compares our translation quality and training costs to other model architectures from the literature. we estimate the number of floating point operations used to train a model by multiplying the training time, the number of gpus used, and an estimate of the sustained single - precision floating - point capacity of each gpu 5. 6. 2 model variations to evaluate the importance of different components of the transformer, we varied our base model in different ways, measuring the change in performance on english - to
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 11
+SIMILARITY SCORE: 0.6589
+
+PASSAGE TEXT:
+
+table 1 : architectures for main language models, all data - / flop - matched. e0, d0, e1, d1, m. t and m denote a transformer and a mamba - 2 layer, respectively. for hierarchical byte - level models, the tokenizer column lists the chunking mechanism. the numbers before dc indicate downsampling factor equation ( 10 ) ; for example, ( 3, 3 ) - dc denotes = = 3. the bpic ( bytes - per - innermost - chunk ) measure shows that each chunk dynamically determined by our 1 - stage comprises similar number of bytes to the gpt - 2 tokenizer, despite aiming for = 6. all transformer layers in e or d networks, as well as llamabyte, use sliding window attention ( swa ) with a window size of 1024. model input tokenizer bpic ( / ) # params architecture d _ model ( d ) # flops matched to gpt - 3 large transformer token gpt2 1792 4. 6 760m t24 1536 llamabyte — 1. 0 210m t16 1024 mambabyte — 1. 0 190m m28 1024 spacebyte spacelike 6. 0 570m t8 + t16 + t8 768, 1536 spacebyte + + spacelike 6. 0 850m m4 + t28 + m4 1024, 1536 h - net ( pool ) byte 6 - pool 8192 6. 0 850m m4 + t28 + m4 1024, 1536 h - net ( space ) spacelike 6. 0 850m m4 + t28 + m4 1024, 1536 h - net ( 1 - stage ) 6 - dc 4. 8 680m m4 + t22 + m4 1024, 1536 h - net ( 2 - stage ) ( 3, 3 ) - dc 7. 0 870m m4 + t1m4 + t26 + m4t1 + m4 1024, 1024, 1536 # flops matched to gpt - 3 xl transformer token gpt
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 11
+SIMILARITY SCORE: 0.6573
+
+PASSAGE TEXT:
+
+- net ( 2 - stage ) ( 3, 3 ) - dc 7. 0 870m m4 + t1m4 + t26 + m4t1 + m4 1024, 1024, 1536 # flops matched to gpt - 3 xl transformer token gpt2 1792 4. 6 1. 3b t24 2048 spacebyte + + spacelike 6. 0 1. 6b m4 + t31 + m4 1024, 2048 h - net ( space ) spacelike 6. 0 1. 6b m4 + t31 + m4 1024, 2048 h - net ( 1 - stage ) byte 6 - dc 8192 4. 7 1. 3b m4 + t24 + m4 1024, 2048 h - net ( 2 - stage ) ( 3, 3 ) - dc 6. 9 1. 6b m4 + t1m4 + t27 + m4t1 + m4 1024, 1536, 2048 • h - net ( pool ) is a baseline ablating the effect of a simple chunking strategy that pools every, which is expected to be weaker than all of the data - dependent chunking strategies. • h - net ( 1 - stage ) is our full h - net method with dc learned end - to - end ( section 2. 2 ) with compression target = 6. • h - net ( 2 - stage ) is our full h - net method, iterated to two nested stages using = 3, = 3. we provide results for two model scales, large ( l ) and xl. each scale is flop - matched to the corresponding gpt - 3 ( brown et al. 2020 ) ( i. e., gpt - 3 l and gpt - 3 xl ) variant of the tokenized transformer ( 760m and 1. 3b parameters respectively ). experimental setup. following established practice ( xue et al. 2022 ; wang et al. 2024 ; slagle 2024 ), we measure performance using bits - per - byte ( bpb ) to ensure comparability across different input representations. for tokenized
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 11
+SIMILARITY SCORE: 0.6553
+
+PASSAGE TEXT:
+
+##b parameters respectively ). experimental setup. following established practice ( xue et al. 2022 ; wang et al. 2024 ; slagle 2024 ), we measure performance using bits - per - byte ( bpb ) to ensure comparability across different input representations. for tokenized models, this amounts to simply rescaling the total negative log likelihood of a sequence ( in tokens ) by the total number of bytes. in addition, we systematically control the data and compute budget for all models ( see table 1 ), matching all models carefully in both bytes - per - batch and flops - per - byte : 13 • data budget : we train all models on the 100b token subset sampled from the fineweb - edu dataset ( penedo et al. 2024 ). all tokenizer - free models process 8192 utf - 8 encoded bytes per sequence, while the transformer uses 1792 tokens from the gpt2 tokenizer ( roughly equivalent to 8192 bytes ). we use batch size 256 for all models ; the total batch size is just under 0. 5m tokens per batch for the baseline bpe transformer, roughly matching protocols from prior work ( gu and dao 2024 ). • compute budget : for calculating flops, we follow standard methodology ( hoffmann et al. 2022 ) with an extension for mamba - 2 layers ( see appendix b ). we use the bpe - tokenized transformer ’ s # flops as a reference, and the number of layers of the other models is adjusted accordingly to match the reference # flops. training employs adamw ( loshchilov and hutter 2017 ) optimizer with warmup - stable - decay ( wsd ) ( hu et al. 2024 ) 13another way to interpret this is that every model sees the exact same underlying data ( regardless of tokenization ) per minibatch, and every model aims to use the same number of flops in every forward / backward pass. 11
+

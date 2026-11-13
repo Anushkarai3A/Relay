@@ -1,0 +1,108 @@
+
+[
+  {
+    "id": "ATT-01",
+    "paper": "1706.03762v7",
+    "question": "How does scaled dot-product attention calculate the attention scores and produce its output?",
+    "answerable": true,
+    "expected_evidence": "Query, key and value matrices; scaling by the square root of key dimension; softmax; weighted sum of values."
+  },
+  {
+    "id": "ATT-02",
+    "paper": "1706.03762v7",
+    "question": "How does multi-head attention differ from using a single attention function?",
+    "answerable": true,
+    "expected_evidence": "Multiple learned projections; parallel attention heads; concatenation and final projection."
+  },
+  {
+    "id": "ATT-03",
+    "paper": "1706.03762v7",
+    "question": "Why does the Transformer use positional encodings, and how are they generated in the proposed model?",
+    "answerable": true,
+    "expected_evidence": "Position information added to embeddings; sine and cosine functions at different frequencies."
+  },
+  {
+    "id": "ATT-04",
+    "paper": "1706.03762v7",
+    "question": "What are the main components of the Transformer encoder and decoder layers?",
+    "answerable": true,
+    "expected_evidence": "Encoder self-attention and feed-forward sublayers; decoder masked self-attention, encoder-decoder attention and feed-forward sublayers; residual connections and layer normalization."
+  },
+  {
+    "id": "ATT-05",
+    "paper": "1706.03762v7",
+    "question": "What is the exact GPU memory consumption of GPT-4 during inference?",
+    "answerable": false,
+    "expected_evidence": "The paper does not discuss GPT-4 or provide its inference memory consumption."
+  },
+  {
+    "id": "MOS-01",
+    "paper": "2410.00037v1",
+    "question": "What problems with conventional spoken-dialogue pipelines does Moshi aim to address?",
+    "answerable": true,
+    "expected_evidence": "High interaction latency; loss of non-linguistic information through text intermediates; inability to handle overlapping speech and interruptions."
+  },
+  {
+    "id": "MOS-02",
+    "paper": "2410.00037v1",
+    "question": "How does Moshi model the speech of the user and the assistant during a conversation?",
+    "answerable": true,
+    "expected_evidence": "Separate parallel streams for user and assistant speech; full-duplex speech-to-speech generation."
+  },
+  {
+    "id": "MOS-03",
+    "paper": "2410.00037v1",
+    "question": "What is the purpose of the Inner Monologue method in Moshi?",
+    "answerable": true,
+    "expected_evidence": "Time-aligned text tokens are generated as a prefix to audio tokens; this improves linguistic quality and supports streaming speech recognition and text-to-speech."
+  },
+  {
+    "id": "MOS-04",
+    "paper": "2410.00037v1",
+    "question": "What theoretical and practical latency figures does the paper report for Moshi?",
+    "answerable": true,
+    "expected_evidence": "Theoretical latency of 160 ms and practical latency of approximately 200 ms."
+  },
+  {
+    "id": "MOS-05",
+    "paper": "2410.00037v1",
+    "question": "What MMLU accuracy does Moshi achieve, and how does it vary across the reported model configurations?",
+    "answerable": true,
+    "expected_evidence": "Table 7 on page 27 reports MMLU scores of 49.8 after single-stream pretraining, 49.7 after multi-stream instruction tuning, and 48.7 for multi-stream instruction tuning with synthetic voice."
+  },
+  {
+    "id": "DCH-01",
+    "paper": "2507.07955v2",
+    "question": "What is dynamic chunking, and how does the model learn its segmentation strategy?",
+    "answerable": true,
+    "expected_evidence": "Content- and context-dependent segmentation learned jointly with the rest of the model."
+  },
+  {
+    "id": "DCH-02",
+    "paper": "2507.07955v2",
+    "question": "How does the H-Net architecture replace the conventional tokenization, language-model and detokenization pipeline?",
+    "answerable": true,
+    "expected_evidence": "An explicit hierarchical network with learned dynamic chunking enables end-to-end processing."
+  },
+  {
+    "id": "DCH-03",
+    "paper": "2507.07955v2",
+    "question": "How does a byte-level H-Net compare with a BPE-based Transformer under compute- and data-matched conditions?",
+    "answerable": true,
+    "expected_evidence": "A one-stage byte-level H-Net outperforms a strong Transformer operating over BPE tokens."
+  },
+  {
+    "id": "DCH-04",
+    "paper": "2507.07955v2",
+    "question": "What benefits does the paper report from using multiple stages of hierarchy in H-Nets?",
+    "answerable": true,
+    "expected_evidence": "Multiple abstraction levels; improved scaling with data; performance matching a token-based Transformer of twice its size."
+  },
+  {
+    "id": "DCH-05",
+    "paper": "2507.07955v2",
+    "question": "What clinical accuracy does H-Net achieve on medical tumor-classification datasets?",
+    "answerable": false,
+    "expected_evidence": "The paper does not report medical tumor-classification experiments."
+  }
+]

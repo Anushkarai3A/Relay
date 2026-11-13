@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: MOS-03
+===========================================================================
+
+Question: What is the purpose of the Inner Monologue method in Moshi?
+Expected paper: 2410.00037v1
+Answerable: True
+
+Expected evidence:
+Time-aligned text tokens are generated as a prefix to audio tokens; this improves linguistic quality and supports streaming speech recognition and text-to-speech.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2410.00037v1
+PAGE: 29
+SIMILARITY SCORE: 0.7379
+
+PASSAGE TEXT:
+
+and llama questions, both introduced by nachmani et al. ( 2024 ). we also synthesize an audio version of triviaqa as another benchmark. when evaluating moshi, we insert the audio tokens of the question into the user stream to simulate a user interaction. baselines. we compare to spectron and baselines used by nachmani et al. ( 2024 ), all having been already introduced in section 5. 4 except for speechgpt ( zhang et al., 2024a ). as a way to measure the impact of inner monologue on spoken fluency, we compare these baselines with moshi trained with and without inner monologue. moreover, to quantify an eventual degradation in knowledge due to training on audio data, we also compare to helium when evaluated on the textual counterpart to each spoken dataset. results. table 8 reports accuracies on the three benchmarks. the most striking result is the impact of inner monologue on moshi ’ s performance, almost tripling its accuracy on all benchmarks, and significantly improving over previous work. this is remarkable as inner monologue only marginally increases inference cost ( each multi - stream timestep requires generating 17 tokens, instead of 16 without inner monologue ). we emphasize again that among all models in this comparison, moshi not only provides the best spoken question answering performance, but is also the only one to model jointly semantic and acoustic tokens, such that it can handle interactions between arbitrary voices in many conditions. discussion. despite the strong performance of moshi, we observe a weaker performance than its original helium checkpoint, which is consistent with the reduced mmlu of 49. 7 re - 29
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2410.00037v1
+PAGE: 28
+SIMILARITY SCORE: 0.7370
+
+PASSAGE TEXT:
+
+moshi : a speech - text foundation model for real - time dialogue initialized randomly and pretrained only on audio data and without inner monologue. the second category includes models that start from a pretrained text lm and are then only trained on audio. this includes twist - 13b as well as the audio - only version of voxtlm ( first row of ( maiti et al., 2023, table 3 ) ) and that of spirit - lm ( reported as “ speech only ” in ( nguyen et al., 2024, table 5 ) ). the corresponding moshi model is similar to the one mentioned above ( audio - only data, no inner monologue ) but starts from the pretrained helium checkpoint. the last category is composed of actual multimodal models that are trained jointly on speech and text data. in this context we report results for three configurations of moshi. first, we report results for moshi pretrained on single - stream data. then, we report results for the final model after multi - stream post - training and finetuning using real recordings from a voice actor to condition the creating of synthetic data in moshi ’ s voice. the last model is identical to the previous one except for the fact that it uses a synthetic voice for moshi. we remind the reader that even if these models are trained with inner monologue, they are evaluated without, to provide a fair comparison with baselines. results. table 7 reports results on audio language modeling. in the “ audio only - cold start ” setting, moshi already provides a strong baseline, in particular considerably improv - ing over precious work in stopic - storycloze. when initialized with an helium checkpoint and then trained on audio - only data, moshi outperforms previous work in this category on most metrics. finally, while multimodal training improves common sense reasoning from speech ( as shown by sstorycloze performance ), we observe mixed effects on lexical and syn - tactic judgments ( swuggy and sblimp ) compared to models trained only on audio data. in particular, while single - stream pretraining moderately degrades swuggy and
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2410.00037v1
+PAGE: 41
+SIMILARITY SCORE: 0.7307
+
+PASSAGE TEXT:
+
+that speech - to - speech generation can be drastically improved by inner monologue, a new method that generates text tokens as a prefix to audio tokens, while remaining compatible with streaming inference. our experiments show that moshi demonstrates state - of - the - art spoken question answering and dialogue modeling while displaying satisfying levels of safety by not generating toxic content and remaining consistent in its voice. to summarize, we introduce a complete suite of models and recipes, from text llms to neural audio codecs and generative audio models, which we combine into a real - time spoken dialogue system with a 160ms theoretical latency able to follow complex multi - turn conversations across 5 minutes. we release both mimi and moshi to foster the development of such applications. additionally, we show how our inner monologue method allows designing streaming tts and streaming asr just by changing the delay between text and audio tokens. we believe that both inner monologue and multi - stream modeling will have a positive impact on speech - to - speech and audio - to - audio beyond dialogue modeling. acknowledgments and disclosure of funding this project is funded by iliad group, cma cgm group and schmidt sciences. we thank xavier niel, rodolphe saad´e, eric schmidt, aude durand, s´everine gr´egoire and nicolas granatino, for their support ; as well as sarah and guillaume rouzaud at kyutai for 22. https : / / github. com / stability - ai / stablediffusion / blob / main / scripts / txt2img. py # l363 41
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2410.00037v1
+PAGE: 3
+SIMILARITY SCORE: 0.7198
+
+PASSAGE TEXT:
+
+several audio streams in parallel, allowing for a conceptually and practically simple handling of full - duplex dialogues with arbitrary dynamics. section 3. 4 describes this architecture. • in section 3. 4. 4, we introduce inner monologue, a new training and inference setup for audio language models that significantly improves the factuality and linguistic quality of generated speech by predicting time - aligned text tokens before audio to - kens. moshi is a speech - to - speech model as it allows reasoning about non - linguistic information, both from the user audio and from moshi ’ s audio. yet, this is not in - compatible with moshi producing text along its speech output. based on the past observation ( borsos et al., 2022 ; zhang et al., 2024b ) that coarse - to - fine generation ( from semantic to acoustic tokens ) is critical to generating consistent speech, we ex - tend this hierarchy to using text tokens as a per - timestep prefix to the semantic token. our experiments show that not only this drastically improves the length and quality of generated speech, but we also show how forcing a delay between text and audio tokens allows deriving streaming asr and streaming tts from a moshi model. • we evaluate all components of moshi along several axes, including text understanding, speech intelligibility and consistency, audio quality and spoken question answering. our experiments, reported in section 5, show that our model is state of the art among existing speech - text models for speech modeling and spoken question answering while being streaming compatible and able to model several minutes of context ( 5 min in our experiments ). we encourage the reader to talk to moshi using our web demo. 5 5. https : / / moshi. chat / 3
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2410.00037v1
+PAGE: 16
+SIMILARITY SCORE: 0.7159
+
+PASSAGE TEXT:
+
+moshi : a speech - text foundation model for real - time dialogue end - to - end speech - to - speech approach. ablation studies in section 5. 3 show that among the design choices made for moshi, inner monologue has one of the most critical impacts on the quality of generated speech. aligning text and audio tokens. to integrate text tokens with audio tokens that operate at a constant framerate of 12. 5hz, we need to align them to this framerate. for that, we leverage the word - level timestamp provided by whisper. the i - th word in the transcript is mapped to ni ∈n∗text tokens wi, j, j ≤ni, along with a start index ti ∈ { 1,... t }, simply defined as its start timestamp divided by the framerate of 12. 5 hz. we define two special tokens : pad and epad, that never appear in any of the word tokens. we build w such that when a word starts, ( wt ) contains its text tokens, followed by pad until the next word. epad is inserted before the next word to indicate the end of the padding. while not strictly necessary, we observed this provided a useful guidance to the model by splitting the decision of ending a word, and which one should follow, into two steps. first, the sequence ( wt ) is initialized with pad tokens, e. g., wt ←pad. then, we modify it iteratively as follows. for each word i and its start index ti, we update w as wti−1 ←epad wti + j ←wi, j ≤ni. ( 5 ) note that if ti = 1, we instead insert epad at index 1, and shift the text tokens. we do not insert an epad token if it would overwrite a text token from a previous word. as text tokens are more compact than the corresponding audio tokens, there is usually no overlap between words in wt. in english conversational speech, we observe that padding tokens represent about 65 % of the tokens. deriving streaming as
+

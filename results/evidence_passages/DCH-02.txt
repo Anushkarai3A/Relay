@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: DCH-02
+===========================================================================
+
+Question: How does the H-Net architecture replace the conventional tokenization, language-model and detokenization pipeline?
+Expected paper: 2507.07955v2
+Answerable: True
+
+Expected evidence:
+An explicit hierarchical network with learned dynamic chunking enables end-to-end processing.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2507.07955v2
+PAGE: 23
+SIMILARITY SCORE: 0.8190
+
+PASSAGE TEXT:
+
+net ’ s superior performance on downstreams provides supporting evidence that it scales better than bpe models. 5 conclusion major advances in deep learning have resulted from powerful architectural innovations enabling previously - handcrafted features to be learned from data, from cnns learning visual features ( krizhevsky, sutskever, and hinton 2012 ) to trans - formers discovering linguistic patterns ( vaswani et al. 2017 ). h - nets similarly unlock the ability to remove another layer of pre - processing, such as tokenizers, and instead learn them end - to - end. this ability results from a set of new techniques we introduce that work together to form a dynamic chunking mechanism, which is able to learn content - and context - dependent discrete segmentation strategies through standard gradient - based optimization. a single - stage byte - level h - net already exceeds the performance of standard tokenized language models, and recursive h - nets with multiple stages of dynamic chunking further improve its scaling. h - nets substantially remedy issues with tokenizers, display very strong performance on diverse languages and language - like modalities, and more broadly may serve as the backbone of general foundation models that do more learning with less processing. 23
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 4
+SIMILARITY SCORE: 0.8074
+
+PASSAGE TEXT:
+
+explicit supervision, validating that end - to - end learning successfully detects the structural patterns traditionally imposed through handcrafted tokenization. • other languages. h - net ’ s improvements are even more pronounced on languages without obvious segmentation cues, including chinese and code ( 59. 9 →66. 3 on xwinograd - zh compared to tokenized transformer ) and dna language modeling ( 3. 6× improved data efficiency compared to isotropic models ). we publicly release model code5 and pretrained checkpoints6. 2 h - net architecture h - nets are defined as hierarchical u - net - like networks, but with data - dependent dynamic subsampling that is learned end - to - end together with the rest of the model. we first introduce h - net ’ s hierarchical architecture for multi - level processing, establishing key design principles ( section 2. 1 ). we then present our dynamic chunking mechanism that learns content - aware compression through standard optimization ( section 2. 2 ). next, we detail architectural and optimization enhancements specifically tailored for hierarchical sequence modeling ( section 2. 3 ). finally, we explain how h - net preserves autoregressive properties throughout its hierarchical structure during both training and inference ( section 2. 4 ). 2. 1 architectural overview 2. 1. 1 components of h - net h - net employs a hierarchical architecture comprising three primary components – encoder networks ( e ), main network ( m ), and decoder networks ( d ) – where each component is implemented with a stack of sequence mixing layers ( e. g., transformers or state space models ). in its simplest form, a single - stage h - net consists of one encoder network, one main network, and one decoder network. crucially, the architecture ’ s key characteristic lies in the main network ’ s unique property : it can itself be instantiated as a complete h - net, enabling recursive construction of multi - level hierarchies. this recursive design allows h - net to scale to arbitrary depths. in an - stage model, we denote components at each stage using superscripts : encoder networks as decoder networks
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 37
+SIMILARITY SCORE: 0.8004
+
+PASSAGE TEXT:
+
+to that of the tokenizer, embedding module, and lm head in a traditional bpe - based language model ; together, these modules interconvert between raw text and an embedding space that the main model backbone can process. given this similarity, we investigated whether it would be possible to convert a bpe - tokenized model directly into a byte level h - net. to do this, we trained a 1 - stage h - net with frozen main network initialized from the backbone of llama 3. 2 3b ( base ). our h - net uses 4 mamba - 2 layers without mlps for both the encoder and decoder with a hidden dimension of 1536. because the llama model has a hidden dimension of 3072, we add mlp adapters with 37
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 39
+SIMILARITY SCORE: 0.7975
+
+PASSAGE TEXT:
+
+requires knowing the next two bytes as well. while the h - net does use the main network, it is not able to exactly match the behavior of the original tokenized model. instead, it is finding slightly different representations of tokens to use in the main stage. recent work has shown that tokenized language models can process tokenization sequences distinct from the “ canonical " greedy tokenization ( vieira et al. 2024 ), so it is possible our h - net found another alternate representation that the pretrained model could process. remark. one might ask if our distilled model has simply learned to tokenize on spaces ( since spaces are always the start of a new token ). it has not. simply tokenizing on spaces would yield a sub - 95 % boundary prediction accuracy ; however, our distilled model gets boundary prediction accuracy above 99. 5 %. this suggests that the resulting h - net is able to recognize some, but not all, subword boundaries. results. the results from our distillation procedure are shown in table 8. h - net is able to approximately match performance across almost all benchmarks ; in general, h - net is not able to replicate the behavior of the tokenized model exactly, so it is not unexpected that the benchmarks are slightly worse. byte - latent transformer ( pagnoni et al. 2024, table 5 ) performs a similar experiment, and they see a greater gap among most benchmarks ( particularly piqa, arc - easy, and arc - challenge ) despite using a much larger amount of data ( 220b tokens versus 189b bytes ) ; it is possible that this performance difference is due to the fact that a blt module cannot be supervised to align boundaries the way that end - to - end dc can. 39
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 4
+SIMILARITY SCORE: 0.7902
+
+PASSAGE TEXT:
+
+hierarchical chunking : from data to abstractions beyond addressing tokenization, h - net improves general sequence modeling across a wide range of settings. subword tokenization in language models is a special case of chunking — the process of building higher - level abstractions from low - level data — and is a central component of intelligence. 4 crucially, because h - net is fully end - to - end, it can be iterated recursively : the main network can itself be an h - net. intuitively, more stages of chunking represent higher order meanings ; just as characters can be combined into words, words can be combined into clauses, sentences, and beyond. iterating the hierarchy should therefore lead to even more efficient use of compute and parameters, and more effective reasoning over compressed representations. recursive h - nets represent a new class of foundation model architectures that not only overcome tokenization, but discover and operate over abstractions learned from raw data, leading to higher - quality models with less pre - processing. iterating the 1 - stage h - net to 2 hierarchical stages further improves its capabilities and strongly outperforms all baselines, with steeper training curves and better scaling with data. a byte - level 2 - stage h - net overtakes the perplexity of a strong tokenized transformer after just 30b training bytes, with the gap widening throughout training, and matches the downstream evaluations of the tokenized transformer of twice its size. finally, h - nets realize the benefits of overcoming tokenization : • robustness. without special data mixes, the pretrained h - net is dramatically more robust to textual perturbations than the token - based transformer, as evaluated on the noisy hellaswag suite of benchmarks. • interpretability. qualitative visualizations of learned boundaries reveal that h - net automatically discovers seman - tically coherent units without explicit supervision, validating that end - to - end learning successfully detects the structural patterns traditionally imposed through handcrafted tokenization. • other languages. h - net ’ s improvements are even more pronounced on languages without obvious segmentation cues, including chinese and code ( 59. 9 →66.
+

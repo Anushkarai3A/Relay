@@ -1,0 +1,63 @@
+===========================================================================
+QUESTION ID: DCH-04
+===========================================================================
+
+Question: What benefits does the paper report from using multiple stages of hierarchy in H-Nets?
+Expected paper: 2507.07955v2
+Answerable: True
+
+Expected evidence:
+Multiple abstraction levels; improved scaling with data; performance matching a token-based Transformer of twice its size.
+
+Retrieved passages: 5
+
+---------------------------------------------------------------------------
+RANK: 1
+PAPER: 2507.07955v2
+PAGE: 4
+SIMILARITY SCORE: 0.7735
+
+PASSAGE TEXT:
+
+h - net, enabling recursive construction of multi - level hierarchies. this recursive design allows h - net to scale to arbitrary depths. in an - stage model, we denote components at each stage using superscripts : encoder networks as decoder networks as stages 0 <, with the main network m residing only at the final stage =. for example, a two - stage model contains e0, e1, m, d1, and d0, as illustrated 4chunking is a formal concept from cognitive psychology central to human memory and cognition, and is the inspiration for this work ’ s terminology. 5https : / / github. com / goombalab / hnet 6https : / / huggingface. co / cartesia - ai 4
+
+---------------------------------------------------------------------------
+RANK: 2
+PAPER: 2507.07955v2
+PAGE: 22
+SIMILARITY SCORE: 0.7617
+
+PASSAGE TEXT:
+
+##ity and conditional compute methods such as mixture - of - experts and speculative decoding ( leviathan, kalman, and matias 2023 ; chen et al. 2023 ) benefited from years of dedicated engineering improvements. deeper hierarchies. h - net is the first dynamic hierarchical model that can recursively nest its chunking strategy ( see table 6 and appendix a ). in this paper, we showed that iterating h - net from 0 stages ( i. e. an isotropic model ) to 1 stage and from 1 stage to 2 stages consistently improves performance. we did not attempt a 3 - stage h - net at all for simplicity. testing if h - net can be iterated even deeper remains an immediate direction to explore. global sequence model considerations. much research on sequence model architectures has focused on individual layers, where the tradeoffs are often quite direct. for example, recurrent models such as state space models ( gu 2023 ; gu and dao 2024 ) and linear attention variants ( katharopoulos et al. 2020 ; yang, wang, shen, et al. 2024 ; yang, wang, zhang, et al. 2024 ; yang, kautz, and hatamizadeh 2025 ) compress arbitrarily long sequences into fixed - size hidden states, offering higher efficiency at the expense of precise retrieval of information ( e. g. struggling with recall ( jelassi et al. 2024 ) ). h - net, however, is a global architectural design that is simultaneously orthogonal to, but may have interactive effects with, the choice of individual layers. for example, using deeper hierarchies with exclusively recurrent layers would preserve linear computation ( in sequence length ) but logarithmic state size, resembling newer sequence model layers such as log - linear attention ( guo et al. 2025 ) and prefix scannable models ( yau et al. 2025 ), but with dynamic hierarchies. similarly, the recursive compression of sequence length may alleviate their limitations in retrieval on long sequences. this may be considered a form of dynamic state allocation. this paper has not focused on such implications, which would be a possible direction for
+
+---------------------------------------------------------------------------
+RANK: 3
+PAPER: 2507.07955v2
+PAGE: 4
+SIMILARITY SCORE: 0.7429
+
+PASSAGE TEXT:
+
+explicit supervision, validating that end - to - end learning successfully detects the structural patterns traditionally imposed through handcrafted tokenization. • other languages. h - net ’ s improvements are even more pronounced on languages without obvious segmentation cues, including chinese and code ( 59. 9 →66. 3 on xwinograd - zh compared to tokenized transformer ) and dna language modeling ( 3. 6× improved data efficiency compared to isotropic models ). we publicly release model code5 and pretrained checkpoints6. 2 h - net architecture h - nets are defined as hierarchical u - net - like networks, but with data - dependent dynamic subsampling that is learned end - to - end together with the rest of the model. we first introduce h - net ’ s hierarchical architecture for multi - level processing, establishing key design principles ( section 2. 1 ). we then present our dynamic chunking mechanism that learns content - aware compression through standard optimization ( section 2. 2 ). next, we detail architectural and optimization enhancements specifically tailored for hierarchical sequence modeling ( section 2. 3 ). finally, we explain how h - net preserves autoregressive properties throughout its hierarchical structure during both training and inference ( section 2. 4 ). 2. 1 architectural overview 2. 1. 1 components of h - net h - net employs a hierarchical architecture comprising three primary components – encoder networks ( e ), main network ( m ), and decoder networks ( d ) – where each component is implemented with a stack of sequence mixing layers ( e. g., transformers or state space models ). in its simplest form, a single - stage h - net consists of one encoder network, one main network, and one decoder network. crucially, the architecture ’ s key characteristic lies in the main network ’ s unique property : it can itself be instantiated as a complete h - net, enabling recursive construction of multi - level hierarchies. this recursive design allows h - net to scale to arbitrary depths. in an - stage model, we denote components at each stage using superscripts : encoder networks as decoder networks
+
+---------------------------------------------------------------------------
+RANK: 4
+PAPER: 2507.07955v2
+PAGE: 4
+SIMILARITY SCORE: 0.7423
+
+PASSAGE TEXT:
+
+hierarchical chunking : from data to abstractions beyond addressing tokenization, h - net improves general sequence modeling across a wide range of settings. subword tokenization in language models is a special case of chunking — the process of building higher - level abstractions from low - level data — and is a central component of intelligence. 4 crucially, because h - net is fully end - to - end, it can be iterated recursively : the main network can itself be an h - net. intuitively, more stages of chunking represent higher order meanings ; just as characters can be combined into words, words can be combined into clauses, sentences, and beyond. iterating the hierarchy should therefore lead to even more efficient use of compute and parameters, and more effective reasoning over compressed representations. recursive h - nets represent a new class of foundation model architectures that not only overcome tokenization, but discover and operate over abstractions learned from raw data, leading to higher - quality models with less pre - processing. iterating the 1 - stage h - net to 2 hierarchical stages further improves its capabilities and strongly outperforms all baselines, with steeper training curves and better scaling with data. a byte - level 2 - stage h - net overtakes the perplexity of a strong tokenized transformer after just 30b training bytes, with the gap widening throughout training, and matches the downstream evaluations of the tokenized transformer of twice its size. finally, h - nets realize the benefits of overcoming tokenization : • robustness. without special data mixes, the pretrained h - net is dramatically more robust to textual perturbations than the token - based transformer, as evaluated on the noisy hellaswag suite of benchmarks. • interpretability. qualitative visualizations of learned boundaries reveal that h - net automatically discovers seman - tically coherent units without explicit supervision, validating that end - to - end learning successfully detects the structural patterns traditionally imposed through handcrafted tokenization. • other languages. h - net ’ s improvements are even more pronounced on languages without obvious segmentation cues, including chinese and code ( 59. 9 →66.
+
+---------------------------------------------------------------------------
+RANK: 5
+PAPER: 2507.07955v2
+PAGE: 23
+SIMILARITY SCORE: 0.7411
+
+PASSAGE TEXT:
+
+net ’ s superior performance on downstreams provides supporting evidence that it scales better than bpe models. 5 conclusion major advances in deep learning have resulted from powerful architectural innovations enabling previously - handcrafted features to be learned from data, from cnns learning visual features ( krizhevsky, sutskever, and hinton 2012 ) to trans - formers discovering linguistic patterns ( vaswani et al. 2017 ). h - nets similarly unlock the ability to remove another layer of pre - processing, such as tokenizers, and instead learn them end - to - end. this ability results from a set of new techniques we introduce that work together to form a dynamic chunking mechanism, which is able to learn content - and context - dependent discrete segmentation strategies through standard gradient - based optimization. a single - stage byte - level h - net already exceeds the performance of standard tokenized language models, and recursive h - nets with multiple stages of dynamic chunking further improve its scaling. h - nets substantially remedy issues with tokenizers, display very strong performance on diverse languages and language - like modalities, and more broadly may serve as the backbone of general foundation models that do more learning with less processing. 23
+
